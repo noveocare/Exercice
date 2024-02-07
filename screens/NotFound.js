@@ -25,4 +25,4 @@ const NotFound = (props) => {
   )           
 }
 
-export default NotFound
+export default NotFound   
