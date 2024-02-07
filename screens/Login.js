@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 //import { View, Text, SafeAreaView, StyleSheet, TextInput, Button, Image } from 'react-native';
 import { Formik } from 'formik'
 import { View } from 'react-native-web'
-import { Octicons } from '@expo/vector-icons'
+//import { Octicons } from '@expo/vector-icons'
 import { AntDesign, Feather } from 'react-native-vector-icons'
 import * as yup from 'yup'
 
@@ -16,14 +16,14 @@ import {
   StyledTextInput,
   RightIcon,
   StyledButton,
-  ButtonText,
   Colors,
   StyledButtonRed,
   StyledText,
   StyledButtonWhite,
-  StyledErrorText
+  StyledErrorText,
+  RightIconPassword
 } from '../components/styles'
-const { secondary, red } = Colors
+const { secondary } = Colors
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -34,24 +34,24 @@ const validationSchema = yup.object().shape({
     .string()
     .min(6, 'Le mot de passe doit comporter au moins 6 caractères')
     .required('Champ requis')
-    .matches(
-      '^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$',
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'
-    )
 })
 
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false)
+  const [buttonPressed, setButtonPressed] = useState(false)
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
   const MyTextInput = ({ label, iconId, iconPas, ...props }) => {
     return (
       <View>
-        <RightIcon onPress={togglePasswordVisibility}>
+        <RightIcon>
           <AntDesign name={iconId} size={15} color={secondary} />
-          <Feather name={iconPas} size={15} color={secondary} />
         </RightIcon>
+        <RightIconPassword onPress={() => togglePasswordVisibility()}>
+          <Feather name={iconPas} size={15} color={secondary} />
+        </RightIconPassword>
         <StyledInputLabel>{label}</StyledInputLabel>
         <StyledTextInput {...props} />
       </View>
@@ -67,14 +67,7 @@ const Login = (props) => {
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            isSubmitting
-          }) => (
+          {({ handleChange, handleBlur, values, errors }) => (
             <StyledFormArea>
               <MyTextInput
                 label="Identifiant"
@@ -85,7 +78,7 @@ const Login = (props) => {
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              {errors.email && (
+              {buttonPressed && errors.email && (
                 <StyledErrorText>{errors.email}</StyledErrorText>
               )}
               <StyledButton>Identifiant perdu?</StyledButton>
@@ -98,8 +91,8 @@ const Login = (props) => {
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
-              />{' '}
-              {errors.password && (
+              />
+              {buttonPressed && errors.password && (
                 <StyledErrorText>{errors.password}</StyledErrorText>
               )}
               <StyledButton>Mot de passe perdu?</StyledButton>
@@ -111,9 +104,7 @@ const Login = (props) => {
               <StyledText>
                 Vous n'avez pas encore d'accès à votre Espace assuré ?
               </StyledText>
-              <StyledButtonWhite
-                onPress={() => props.navigation.replace('NotFound')}
-              >
+              <StyledButtonWhite onPress={() => setButtonPressed(true)}>
                 Première connexion
               </StyledButtonWhite>
             </StyledFormArea>
