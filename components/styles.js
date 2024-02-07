@@ -90,8 +90,8 @@ export const RightIconPassword = styled.TouchableOpacity`
 `
 
 export const BackIcon = styled.TouchableOpacity`
-  left: 33%;
-  top: 8px;
+  left: 35%;
+  top: 7px;
   position: absolute;
   z-index: 1;
   color: ${primary};
@@ -128,7 +128,7 @@ export const StyledButtonRed404 = styled.TouchableOpacity`
 
 export const StyledText = styled.Text`
   padding: 5px;
-  font-size: 13px;
+  font-size: 13.5px;
   top: 25px;
   height: 50px;
   margin-vertical: 3px;
