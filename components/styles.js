@@ -7,6 +7,7 @@ export const Colors = {
   red: '#E94B58 '
 }
 export const LatoFont = 'Lato-Regular'
+export const LatoFontBold = 'Lato-Bold'
 
 const { primary, secondary, white, red } = Colors
 
@@ -38,13 +39,13 @@ export const Title = styled.Text`
   text-align: center;
   color: ${primary};
   padding-top: 23px;
-  font-family: ${LatoFont};
+  font-family: ${LatoFontBold};
 `
 export const Title404 = styled.Text`
   font-size: 33px;
   color: ${primary};
   padding-top: 90px;
-  font-family: ${LatoFont};
+  font-family: ${LatoFontBold};
 `
 
 export const StyledFormArea = styled.View`
@@ -111,7 +112,7 @@ export const StyledButtonRed = styled.TouchableOpacity`
   border-radius: 8px;
   margin-vertical: 5px;
   height: 40px;
-  color: white;
+  color: ${white};
 `
 export const StyledButtonRed404 = styled.TouchableOpacity`
   padding: 15px;
@@ -122,9 +123,9 @@ export const StyledButtonRed404 = styled.TouchableOpacity`
   border-radius: 8px;
   margin-vertical: 5px;
   height: 40px;
-  color: white;
   width: 100%;
 `
+
 export const StyledText = styled.Text`
   padding: 5px;
   font-size: 13px;

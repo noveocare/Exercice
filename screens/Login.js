@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 //import { View, Text, SafeAreaView, StyleSheet, TextInput, Button, Image } from 'react-native';
 import { Formik } from 'formik'
-import { View } from 'react-native-web'
+import { View, Text } from 'react-native-web'
 //import { Octicons } from '@expo/vector-icons'
 import { AntDesign, Feather } from 'react-native-vector-icons'
 import * as yup from 'yup'
@@ -23,7 +23,7 @@ import {
   StyledErrorText,
   RightIconPassword
 } from '../components/styles'
-const { secondary } = Colors
+const { white, secondary } = Colors
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -99,13 +99,13 @@ const Login = (props) => {
               <StyledButtonRed
                 onPress={() => props.navigation.replace('NotFound')}
               >
-                Je me connecte
+                <Text style={{ color: 'white' }}>Je me connecte</Text>
               </StyledButtonRed>
               <StyledText>
                 Vous n'avez pas encore d'accès à votre Espace assuré ?
               </StyledText>
               <StyledButtonWhite onPress={() => setButtonPressed(true)}>
-                Première connexion
+                <Text>Première connexion</Text>
               </StyledButtonWhite>
             </StyledFormArea>
           )}

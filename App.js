@@ -11,7 +11,8 @@ const Stack = createStackNavigator()
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
-    'Lato-Light': require('./assets/fonts/Lato-Light.ttf')
+    'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
+    'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf')
   })
   if (!fontsLoaded) {
     return <Text>Loading...</Text>

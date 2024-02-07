@@ -7,7 +7,8 @@ import {
   Title404,
   StyledText404,
   StyledButtonRed404,
-  StyledButtonWhite404
+  StyledButtonWhite404,
+  LatoFont
 } from '../components/styles'
 import React from 'react'
 import { AntDesign } from 'react-native-vector-icons'
@@ -21,13 +22,15 @@ const NotFound = (props) => {
           Nous sommes désolé il n'existe aucun contenu à cet endroit.
         </StyledText404>
         <StyledButtonRed404 onPress={() => props.navigation.replace('Login')}>
-          Aller à l'acceuil
+          <Text style={{ color: 'white', fontFamily: LatoFont }}>
+            Aller à l'accueil
+          </Text>
         </StyledButtonRed404>
         <StyledButtonWhite404 onPress={() => props.navigation.replace('Login')}>
           <BackIcon>
             <AntDesign name="arrowleft" size={20} />
           </BackIcon>
-          Retour
+          <Text>Retour</Text>
         </StyledButtonWhite404>
       </InnerContainer>
     </StyledContainer>
