@@ -1,29 +1,34 @@
 import React, { useState } from 'react'
-//import { View, Text, SafeAreaView, StyleSheet, TextInput, Button, Image } from 'react-native';
 import { Formik } from 'formik'
 import { View, Text } from 'react-native-web'
-//import { Octicons } from '@expo/vector-icons'
+import logo from './../assets/Logo.png'
 import { AntDesign, Feather } from 'react-native-vector-icons'
 import * as yup from 'yup'
-
 import {
   StyledContainer,
   InnerContainer,
   Logo,
-  Title,
-  StyledFormArea,
-  StyledInputLabel,
-  StyledTextInput,
-  RightIcon,
+  StyledFormArea
+} from '../components/Styles'
+import {
   StyledButton,
-  Colors,
   StyledButtonRed,
+  StyledButtonWhite
+} from '../components/Buttons'
+import { RightIcon, RightIconPassword } from '../components/Icons'
+import {
   StyledText,
-  StyledButtonWhite,
+  StyledTextInput,
+  StyledInputLabel,
   StyledErrorText,
-  RightIconPassword
-} from '../components/styles'
-const { white, secondary } = Colors
+  Title
+} from '../components/Texts'
+/*  import {a
+ 
+  Title
+} from '../App'  */
+import { colors } from '../components/Colors'
+const { red, white, primary, secondary } = colors
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -60,7 +65,7 @@ const Login = (props) => {
   return (
     <StyledContainer>
       <InnerContainer>
-        <Logo resizeMode="cover" source={require('./../assets/Logo.png')} />
+        <Logo resizeMode="cover" source={logo} />
         <Title>Mon espace Adhérent</Title>
 
         <Formik
@@ -99,13 +104,13 @@ const Login = (props) => {
               <StyledButtonRed
                 onPress={() => props.navigation.replace('NotFound')}
               >
-                <Text style={{ color: 'white' }}>Je me connecte</Text>
+                Je me connecte
               </StyledButtonRed>
               <StyledText>
                 Vous n'avez pas encore d'accès à votre Espace assuré ?
               </StyledText>
               <StyledButtonWhite onPress={() => setButtonPressed(true)}>
-                <Text>Première connexion</Text>
+                Première connexion
               </StyledButtonWhite>
             </StyledFormArea>
           )}
