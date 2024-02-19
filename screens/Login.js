@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
-import { View, Text } from 'react-native-web'
+import { Text ,View} from 'react-native'
 import logo from './../assets/Logo.png'
 import { AntDesign, Feather } from 'react-native-vector-icons'
 import * as yup from 'yup'
+import { useTheme } from 'styled-components/native'
 import {
   StyledContainer,
   InnerContainer,
@@ -21,96 +22,122 @@ import {
   StyledTextInput,
   StyledInputLabel,
   StyledErrorText,
-  Title
+  Title,
+  TextButtonPrimary,
+  TextButtonWhite
 } from '../components/Texts'
-/*  import {a
- 
-  Title
-} from '../App'  */
-import { colors } from '../components/Colors'
-const { red, white, primary, secondary } = colors
 
 const validationSchema = yup.object().shape({
   email: yup
     .string()
     .email("Format de l'adresse e-mail invalide")
-    .required('Champ requis'),
+    .required('Le champ Identifiant ne peut pas être vide'),
   password: yup
     .string()
     .min(6, 'Le mot de passe doit comporter au moins 6 caractères')
-    .required('Champ requis')
+    .required('Le champ Mot de passe ne peut pas être vide')
 })
+
+
 
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [buttonPressed, setButtonPressed] = useState(false)
+  const theme = useTheme()
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
-  const MyTextInput = ({ label, iconId, iconPas, ...props }) => {
+
+  const MyTextInput = ({ label, iconId, iconPas, errors, touched, ...props }) => {
+    const hasError = errors ;
+  
     return (
-      <View>
-        <RightIcon>
-          <AntDesign name={iconId} size={15} color={secondary} />
-        </RightIcon>
-        <RightIconPassword onPress={() => togglePasswordVisibility()}>
-          <Feather name={iconPas} size={15} color={secondary} />
-        </RightIconPassword>
-        <StyledInputLabel>{label}</StyledInputLabel>
-        <StyledTextInput {...props} />
-      </View>
-    )
-  }
+      <>
+        <View style={{ position: 'relative' }}>
+          <RightIcon>
+            <AntDesign name={iconId} size={15} color={theme.colors.secondary} />
+          </RightIcon>
+          <RightIconPassword onPress={() => togglePasswordVisibility()}>
+            <Feather name={iconPas} size={15} color={theme.colors.secondary} />
+          </RightIconPassword>
+          <StyledInputLabel>{label}</StyledInputLabel>
+          <StyledTextInput {...errors} {...props} />
+          {hasError && (
+              <StyledErrorText>   
+              {errors}  </StyledErrorText>
+            
+          )}
+        </View>
+      </>
+    );
+  };
+  
   return (
     <StyledContainer>
       <InnerContainer>
         <Logo resizeMode="cover" source={logo} />
         <Title>Mon espace Adhérent</Title>
 
-        <Formik
+        <Formik 
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
         >
-          {({ handleChange, handleBlur, values, errors }) => (
+          {({ handleChange, handleBlur, setFieldValue, values, errors, touched }) => (
             <StyledFormArea>
               <MyTextInput
                 label="Identifiant"
                 placeholder="Entrer votre adresse mail"
-                placeholderTextColor={secondary}
+                placeholderTextColor={theme.colors.secondary}
                 iconId="questioncircleo"
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              {buttonPressed && errors.email && (
+              {(buttonPressed ) && errors.email && (
                 <StyledErrorText>{errors.email}</StyledErrorText>
               )}
-              <StyledButton>Identifiant perdu?</StyledButton>
+              <StyledButton>
+                <Text style={{ color: theme.colors.red }}>
+                  Identifiant perdu?
+                </Text>
+              </StyledButton>
               <MyTextInput
                 label="Mot de passe"
-                placeholderTextColor={secondary}
-                iconPas={showPassword ? 'eye-off' : 'eye'}
+                placeholderTextColor={theme.colors.secondary}
+                iconPas={showPassword ? 'eye' : 'eye-off'}
                 secureTextEntry={!showPassword}
                 placeholder="••••••••"
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
               />
-              {buttonPressed && errors.password && (
-                <StyledErrorText>{errors.password}</StyledErrorText>
+              {(buttonPressed ) && errors.password && (
+                <StyledErrorText>{errors.password }</StyledErrorText>
               )}
-              <StyledButton>Mot de passe perdu?</StyledButton>
+              <StyledButton>
+                <Text style={{ color: theme.colors.red }}>
+                  Mot de passe perdu?
+                </Text>
+              </StyledButton>
               <StyledButtonRed
                 onPress={() => props.navigation.replace('NotFound')}
               >
-                Je me connecte
+                <TextButtonWhite>Je me connecte</TextButtonWhite>
               </StyledButtonRed>
               <StyledText>
-                Vous n'avez pas encore d'accès à votre Espace assuré ?
+                <Text>
+                  Vous n'avez pas encore d'accès à votre Espace assuré ?
+                </Text>
               </StyledText>
-              <StyledButtonWhite onPress={() => setButtonPressed(true)}>
-                Première connexion
+              <StyledButtonWhite
+                onPress={() => {
+                  setButtonPressed(true);
+                  setFieldValue('email', values.email); 
+                  setFieldValue('password', values.password); 
+                }}
+              >
+                <TextButtonPrimary>Première connexion</TextButtonPrimary>
               </StyledButtonWhite>
             </StyledFormArea>
           )}
@@ -121,3 +148,4 @@ const Login = (props) => {
 }
 
 export default Login
+

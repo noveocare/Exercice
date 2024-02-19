@@ -1,7 +1,4 @@
 import styled from 'styled-components/native'
-import { colors } from './Styles'
-
-const { primary, secondary, red } = colors
 
 export const makeIcon = ({ right, left, top, iconColor }) => `
   right: ${right}px;
@@ -10,16 +7,22 @@ export const makeIcon = ({ right, left, top, iconColor }) => `
   position: absolute;
   z-index: 1;
   color: ${iconColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const RightIcon = styled.TouchableOpacity`
-  ${makeIcon({ right: 10, top: 50, iconColor: secondary })}
+  ${({ theme }) => makeIcon({ right: 15, top: 44, iconColor: theme.colors.secondary })}
+
+ 
+
 `
 
 export const RightIconPassword = styled.TouchableOpacity`
-  ${makeIcon({ right: 10, top: 50, iconColor: secondary })}
+  ${({ theme }) => makeIcon({ right: 15, top: 45, iconColor: theme.colors.secondary })}
 `
 
 export const BackIcon = styled.TouchableOpacity`
-  ${makeIcon({ left: 115, top: 7, iconColor: primary })}
+  ${({ theme }) => makeIcon({ left: 105, top: 11, iconColor: theme.colors.primary })}
 `

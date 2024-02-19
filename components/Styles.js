@@ -1,26 +1,17 @@
 import styled from 'styled-components/native'
 
-export const colors = {
-  primary: '#101828',
-  secondary: '#667085',
-  white: '#FFFFFF',
-  red: '#E94B58 '
-}
-const { primary, secondary, white, red } = colors
 export const StyledContainer = styled.View`
   flex: 1;
-  padding-top: 48px;
+  padding-top: 20%;
   padding-right: 16px;
   padding-bottom: 48px;
   padding-left: 16px;
-  background-color: ${white};
+  background-color: ${(props) => props.theme.colors.white};
 `
 
 export const InnerContainer = styled.View`
   flex: 1;
-  width: 100%;
   align-items: center;
-  padding-left: 0px;
 `
 
 export const Logo = styled.Image`
@@ -28,7 +19,9 @@ export const Logo = styled.Image`
 `
 export const Logo404 = styled.Image`
   align-items: center;
-  top: 30px;
+  top: 40px;
+  width: 148px;
+  height: 18.68px;
 `
 
 export const StyledFormArea = styled.View`

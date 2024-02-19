@@ -1,14 +1,9 @@
 import styled, { useTheme } from 'styled-components/native'
-import { ThemeProvider } from 'styled-components'
-
-import { colors } from './Styles'
 import { LatoFont, LatoFontBold } from './Fonts'
-
-//const { primary, secondary } = colors;
 
 export const StyledText = styled.Text`
   padding: 5px;
-  font-size: 13.5px;
+  font-size: 13px;
   top: 25px;
   height: 50px;
   margin-vertical: 3px;
@@ -22,9 +17,10 @@ export const StyledText = styled.Text`
 
 export const StyledText404 = styled.Text`
   padding: 5px;
-  font-size: 18px;
+  font-size: 19px;
   top: 25px;
   height: 50px;
+  left: 0px;
   margin-vertical: 3px;
   margin-bottom: 5px;
   color: ${(props) => {
@@ -37,28 +33,28 @@ export const StyledText404 = styled.Text`
 export const StyledErrorText = styled.Text`
   color: ${(props) => {
     const theme = useTheme()
-    return theme.colors.primary
+    return theme.colors.red
   }};
   font-size: 14px;
-  margin-top: 5px;
-  font-family: ${LatoFont};
+  margin-top: 2px;
+  margin-bottom: 10px;
+ 
+  
 `
 
 export const StyledTextInput = styled.TextInput`
-  padding: 5px;
-  padding-left: 10px;
+  padding: 12px;
   padding-right: 55px;
   border-radius: 8px;
-  border-color: rgba(16, 24, 40, 0.2);
-  font-size: 18px;
-  height: 50px;
+  border-color: ${(props) => (props.error  ? props.theme.colors.red : 'rgba(16, 24, 40, 0.075)')};
+  font-size: 16px;
+  height: 46px;
   margin-vertical: 3px;
-  margin-bottom: 10px;
-  border-width: 1.75px;
-  color: ${(props) => {
-    const theme = useTheme()
-    return theme.colors.secondary
-  }};
+  margin-bottom: 6px;
+  font-size: 16px;
+  border-width: 1.3px;
+  line-height: 24px;
+  color: ${(props) => props.theme.colors.primary};
   font-family: ${LatoFont};
 `
 
@@ -74,24 +70,54 @@ export const StyledInputLabel = styled.Text`
   font-family: ${LatoFont};
 `
 
-export const Title404 = styled.Text`
-  font-size: 33px;
+export const TextTitle404 = styled.Text`
+  font-size: 36px;
   color: ${(props) => {
     const theme = useTheme()
     return theme.colors.primary
   }};
-  padding-top: 90px;
+  padding-top: 30%;
   font-family: ${LatoFontBold};
+  text-align: left;
+  left: -5%;
 `
 
 export const Title = styled.Text`
-  font-size: 25px;
+  font-size: 24px;
   text-align: center;
   color: ${(props) => {
     const theme = useTheme()
     return theme.colors.primary
   }};
-
-  padding-top: 23px;
+  padding-top: 29px;
   font-family: ${LatoFontBold};
 `
+
+export const textButtonStyle = ({ color }) => `
+font-family: ${LatoFont};
+font-size: 16px;
+text-align: center;
+color: ${color};
+`
+
+export const TextButtonWhite = styled.Text`
+  ${({ theme }) =>
+    textButtonStyle({
+      color: theme.colors.white
+    })}
+`
+
+export const TextButtonPrimary = styled.Text`
+  ${({ theme }) =>
+    textButtonStyle({
+      color: theme.colors.primary
+    })}
+`
+
+export const TextButton = styled.Text`
+  ${({ theme }) =>
+    textButtonStyle({
+      color: theme.colors.red
+    })}
+`
+

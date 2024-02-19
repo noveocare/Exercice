@@ -7,7 +7,8 @@ const myTheme = {
     primary: '#101828',
     secondary: '#667085',
     white: '#FFFFFF',
-    redBg: '#E94B58'
+    red: '#E94B58',
+    gray: '#344054'
   },
   fonts: {
     LatoFont: 'Lato-Regular',
