@@ -1,16 +1,21 @@
-import axios from 'axios'
-
-
-
-const loginService = {
-  login: async (credentials) => {
-    try {
-      const response = await axios.post(`${process.env.API_BASE_URL}/auth/login`, credentials);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
+// import axios from 'axios';
+export const debugService = async () => {
+  try {
+    const response = await fetch(process.env.EXPO_PUBLIC_API_URL + "/heartbeat").then(res => res.text());
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export default loginService;
+ 
+/* const debugService = async () => {
+  try {
+    debugger
+    const response = await axios.get("http://192.168.201.40:8085/heartbeat");
+    console.log('API Response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('API Error:', error);
+  }
+}; */

@@ -19,11 +19,11 @@ export const Logo = styled.Image`
 `
 export const Logo404 = styled.Image`
   align-items: center;
-  top: 40px;
-  width: 148px;
-  height: 18.68px;
+  top: 20px;
 `
 
 export const StyledFormArea = styled.View`
   padding-top: 35px;
+  maxWidth: "400px" ;
+  width: "100%" ;
 `

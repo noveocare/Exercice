@@ -1,12 +1,11 @@
-// App.js
 import React from 'react'
 import { Text } from 'react-native'
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Theme from './components/Theme'
-import { LatoFont, LatoFontBold } from './components/Fonts'
 import Login from './screens/Login'
+
 import NotFound from './screens/NotFound'
 
 const Stack = createStackNavigator()
@@ -39,8 +38,8 @@ export default function App() {
             }),
           }}
         >
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="NotFound" component={NotFound} />
+          <Stack.Screen name= "Login" component={Login} />
+          <Stack.Screen name="NotFound" component={NotFound} /> 
         </Stack.Navigator>
       </NavigationContainer>
     </Theme>

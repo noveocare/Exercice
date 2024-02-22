@@ -1,4 +1,3 @@
-// Theme.js
 import React from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 

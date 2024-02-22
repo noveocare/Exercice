@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+ import React, { useState } from 'react'
 import { Formik } from 'formik'
-import { Text ,View} from 'react-native'
+import { Text, View } from 'react-native'
 import logo from './../assets/Logo.png'
 import { AntDesign, Feather } from 'react-native-vector-icons'
 import * as yup from 'yup'
@@ -26,6 +26,7 @@ import {
   TextButtonPrimary,
   TextButtonWhite
 } from '../components/Texts'
+import loginService from '../services/loginService'
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -38,8 +39,6 @@ const validationSchema = yup.object().shape({
     .required('Le champ Mot de passe ne peut pas être vide')
 })
 
-
-
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [buttonPressed, setButtonPressed] = useState(false)
@@ -49,9 +48,33 @@ const Login = (props) => {
     setShowPassword(!showPassword)
   }
 
-  const MyTextInput = ({ label, iconId, iconPas, errors, touched, ...props }) => {
-    const hasError = errors ;
-  
+  const handleLogin = async (values) => {
+    try {
+      const response = await loginService.login({
+        grant_type: PASSWORD,
+        login: values.email,
+        password: values.password
+      })
+
+      console.log("Réponse de l'API:", response)
+    } catch (error) {
+      console.error(
+        "Erreur lors de la demande d'authentification:",
+        error.message
+      )
+    }
+  }
+
+  const MyTextInput = ({
+    label,
+    iconId,
+    iconPas,
+    errors,
+    touched,
+    ...props
+  }) => {
+    const hasError = errors
+
     return (
       <>
         <View style={{ position: 'relative' }}>
@@ -63,28 +86,31 @@ const Login = (props) => {
           </RightIconPassword>
           <StyledInputLabel>{label}</StyledInputLabel>
           <StyledTextInput {...errors} {...props} />
-          {hasError && (
-              <StyledErrorText>   
-              {errors}  </StyledErrorText>
-            
-          )}
+          {hasError && <StyledErrorText>{errors} </StyledErrorText>}
         </View>
       </>
-    );
-  };
-  
+    )
+  }
+
   return (
     <StyledContainer>
       <InnerContainer>
         <Logo resizeMode="cover" source={logo} />
         <Title>Mon espace Adhérent</Title>
 
-        <Formik 
+        <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
         >
-          {({ handleChange, handleBlur, setFieldValue, values, errors, touched }) => (
-            <StyledFormArea>
+          {({
+            handleChange,
+            handleBlur,
+            setFieldValue,
+            values,
+            errors,
+            touched
+          }) => (
+            <StyledFormArea >
               <MyTextInput
                 label="Identifiant"
                 placeholder="Entrer votre adresse mail"
@@ -94,7 +120,7 @@ const Login = (props) => {
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              {(buttonPressed ) && errors.email && (
+              {buttonPressed && errors.email && (
                 <StyledErrorText>{errors.email}</StyledErrorText>
               )}
               <StyledButton>
@@ -112,8 +138,8 @@ const Login = (props) => {
                 onBlur={handleBlur('password')}
                 value={values.password}
               />
-              {(buttonPressed ) && errors.password && (
-                <StyledErrorText>{errors.password }</StyledErrorText>
+              {buttonPressed && errors.password && (
+                <StyledErrorText>{errors.password}</StyledErrorText>
               )}
               <StyledButton>
                 <Text style={{ color: theme.colors.red }}>
@@ -132,9 +158,9 @@ const Login = (props) => {
               </StyledText>
               <StyledButtonWhite
                 onPress={() => {
-                  setButtonPressed(true);
-                  setFieldValue('email', values.email); 
-                  setFieldValue('password', values.password); 
+                  setButtonPressed(true)
+                  setFieldValue('email', values.email)
+                  setFieldValue('password', values.password)
                 }}
               >
                 <TextButtonPrimary>Première connexion</TextButtonPrimary>
@@ -148,4 +174,3 @@ const Login = (props) => {
 }
 
 export default Login
-

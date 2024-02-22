@@ -1,8 +1,6 @@
-import styled from 'styled-components/native'
-import { LatoFontBold, LatoFont } from './Fonts'
+import styled, { useTheme } from 'styled-components/native'
 
-export const makeButton = ({ backgroundColor, borderColor, font }) => `
- 
+export const makeButton = ({ theme, backgroundColor, borderColor, font }) => `
   background-color: ${backgroundColor};
   justify-content: center;
   align-items: center;
@@ -11,52 +9,55 @@ export const makeButton = ({ backgroundColor, borderColor, font }) => `
   height: 43px;
   border-width: 1.75px;
   border-color: ${borderColor};
-  font-family: ${font};
+  font-family: ${theme.fonts.LatoFont};
 `
+
 export const StyledButtonRed = styled.TouchableOpacity`
   ${({ theme }) =>
     makeButton({
+      theme,
       backgroundColor: theme.colors.red,
-      borderColor: theme.colors.red,
-      font: LatoFont
+      borderColor: theme.colors.red
     })}
 `
+
 export const StyledButtonRed404 = styled.TouchableOpacity`
   ${({ theme }) =>
     makeButton({
+      theme,
       backgroundColor: theme.colors.red,
-      borderColor: theme.colors.red,
-      font: LatoFont
+      borderColor: theme.colors.red
     })}
   top: 8%;
-  width: 97%;
 `
 
 export const StyledButtonWhite = styled.TouchableOpacity`
   ${({ theme }) =>
     makeButton({
+      theme,
       backgroundColor: theme.colors.white,
-      borderColor: theme.colors.secondary,
-      font: LatoFont
+      borderColor: theme.colors.secondary
     })}
-  border-color: rgba(16, 24, 40, 0.08);
+  border-color: rgba(16, 24, 40, 0.15);
 `
 
 export const StyledButtonWhite404 = styled.TouchableOpacity`
   ${({ theme }) =>
     makeButton({
+      theme,
       backgroundColor: theme.colors.white,
-      borderColor: theme.colors.secondary,
-      font: LatoFont
+      borderColor: theme.colors.secondary
     })}
-  border-color: rgba(16, 24, 40, 0.2);
+  border-color: rgba(16, 24, 40, 0.15);
   top: 9%;
-  width: 97%;
 `
 
 export const StyledButton = styled.TouchableOpacity`
-  font-family: ${LatoFont};
+  font-family: ${(props) => {
+    const theme = useTheme()
+    return theme.fonts.LatoFont
+  }};
   font-size: 14px;
   text-align: left;
-  padding-bottom: 25px;
+  padding-bottom: 22px;
 `
